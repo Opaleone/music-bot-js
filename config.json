@@ -1,0 +1,14 @@
+{
+  "token": "OTk1NzQ5MDY5NjM5MTQzNDM0.GLfwM5.PnVYWSJNlhNjf7TcOyk8VJPCc_nM6IxoJOOd-0",
+  "clientId": "995749069639143434",
+  "baseUrl": "http://localhost:3001/api",
+  "creatorId": "407644283256963079",
+  "debug": {
+    "status": false,
+    "channels": [
+      "1172018573456191488",
+      "1172022907048820766",
+      "1172022965945237616"
+    ]
+  }
+}
