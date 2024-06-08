@@ -8,17 +8,12 @@ module.exports = {
   data: new SlashCommandBuilder()
       .setName('play')
       .setDescription('Play a song')
-      // .addStringOption(option => {
-      //   return option
-      //     .setName('Song Name')
-      //     .setDescription('A link or name to search');
-      // }),
       .addSubcommand(subcommand => {
         subcommand
           .setName('search')
           .setDescription('Searches for song')
           .addStringOption(option => {
-            option
+            return option
               .setName('searchterms')
               .setDescription('search keywords')
               .setRequired(true);
@@ -29,7 +24,7 @@ module.exports = {
           .setName('playlist')
           .setDescription('Plays playlist from YouTube')
           .addStringOption(option => {
-            option
+            return option
               .setName('url')
               .setDescription('playlist url')
               .setRequired(true);
@@ -125,7 +120,7 @@ module.exports = {
       })
     } catch(e) {
       const curTimeDate = new Date().toJSON();
-      const msg = `${curTimeDate}: ${e.message} ::::\n`;
+      const msg = `${curTimeDate}: ${e.message} ::play.js::\n`;
 
       fs.appendFile('errors.log', msg, (err) => {
         if (err) console.error(err)
