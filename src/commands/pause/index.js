@@ -16,7 +16,7 @@ module.exports = {
       
     } catch (e) {
       const todayDate = new Date().toJSON();
-      const msg = `${todayDate}: ${e} ::::\n`;
+      const msg = `${todayDate}: ${e} ::pause.js::\n`;
 
       // Log error to file
       fs.appendFile('errors.log', msg, (err) => {
