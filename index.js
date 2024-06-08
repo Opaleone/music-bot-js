@@ -1,5 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require("discord-api-types/v9");
+const { Player } = require("discord-player");
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const config = require('./config.json');
 
@@ -7,9 +10,8 @@ const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildMessageReactions
-  ] 
+		GatewayIntentBits.GuildVoiceStates
+  ]
 });
 
 client.commands = new Collection();
@@ -42,6 +44,13 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
+
+client.player = new Player(client, {
+	ytdlOptions: {
+		quality: "highestaudio",
+		highWaterMark: 1 << 25
+	}
+});
 
 client.on('messageCreate', async (message) => {
 	try {	
