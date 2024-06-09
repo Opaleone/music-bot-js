@@ -9,7 +9,7 @@ module.exports = {
       .setName('play')
       .setDescription('Play a song')
       .addSubcommand(subcommand => {
-        subcommand
+        return subcommand
           .setName('search')
           .setDescription('Searches for song')
           .addStringOption(option => {
@@ -20,7 +20,7 @@ module.exports = {
           })
       })
       .addSubcommand(subcommand => {
-        subcommand
+        return subcommand
           .setName('playlist')
           .setDescription('Plays playlist from YouTube')
           .addStringOption(option => {
@@ -31,12 +31,17 @@ module.exports = {
           })
       })
       .addSubcommand(subcommand => {
-        subcommand
+        return subcommand
           .setName('song')
           .setDescription('Plays song from YouTube')
-          .setRequired(true);
+          .addStringOption(option => {
+            return option
+              .setName('url')
+              .setDescription('url of song')
+              .setRequired(true)
+          });
       }),
-  async execute(interaction) {
+  async execute({client, interaction}) {
     try {
       if (config.debug.status) {
         if (!config.debug.channels.includes(interaction.channelId)) {
@@ -45,7 +50,7 @@ module.exports = {
       }
 
       if (!interaction.member.voice.channel) {
-        return await interaction.reply('You must be in a voice channel to use this command.')
+        return await interaction.reply({content: 'You must be in a voice channel to use this command.', ephemeral: true })
       }
 
       const queue = await client.player.createQueue(interaction.guild);
